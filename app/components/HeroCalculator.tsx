@@ -1,12 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Tooltip from './Tooltip';
 
-interface HeroCalculatorProps {
-  isActive?: boolean;
-}
-
-export default function HeroCalculator({ isActive = true }: HeroCalculatorProps) {
+export default function HeroCalculator() {
   const [baseCost, setBaseCost] = useState('');
   const [ventajas, setVentajas] = useState('');
   const [limitaciones, setLimitaciones] = useState('');
@@ -43,154 +40,223 @@ export default function HeroCalculator({ isActive = true }: HeroCalculatorProps)
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-yellow-100 via-orange-50 to-red-100 flex items-center justify-center p-4 md:p-8">
-      <div className="relative">
-        {/* Comic Book Style Container */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-lg border-8 border-black transform hover:scale-105 transition-transform duration-300"
-          style={{
-            filter: 'drop-shadow(8px 8px 0px rgba(0,0,0,0.3))',
-            boxShadow: '0 0 0 4px #FFD700, 0 0 0 8px #000'
+    <div className="min-h-screen w-full p-4 md:p-8" style={{
+      background: 'linear-gradient(135deg, #FFFACD 0%, #FFE4B5 50%, #FFD700 100%)',
+      position: 'relative'
+    }}>
+      {/* Decorative dots pattern - Comic book style */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
+        backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)',
+        backgroundSize: '20px 20px'
+      }}></div>
+
+      <div className="relative z-10 max-w-6xl mx-auto">
+        {/* Title Panel - Large historieta style */}
+        <div className="mb-8 transform -rotate-1">
+          <div className="bg-white border-8 border-black p-8 md:p-10 shadow-xl" style={{
+            boxShadow: '0 10px 25px rgba(0,0,0,0.3), 0 0 0 4px #FFD700'
           }}>
-          
-          {/* Comic style title with star burst background */}
-          <div className="relative mb-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-2xl transform -rotate-1" style={{ clipPath: 'polygon(10% 0%, 90% 5%, 100% 10%, 95% 90%, 90% 95%, 10% 100%, 5% 90%, 0% 10%)' }}></div>
-            <h1 className="relative text-4xl font-black text-center text-white drop-shadow-lg" style={{
-              textShadow: '-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0px 0px 20px rgba(255,215,0,0.8)',
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-center mb-2" style={{
+              textShadow: '-4px -4px 0 #000, 4px -4px 0 #000, -4px 4px 0 #000, 4px 4px 0 #000, 0 0 20px rgba(255,165,0,0.8)',
+              color: '#FF6B35',
+              letterSpacing: '4px',
               fontStyle: 'italic'
             }}>
-              HERO CALC
+              ¡CALCULADORA!
             </h1>
+            <h2 className="text-4xl md:text-5xl font-black text-center" style={{
+              textShadow: '-3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000',
+              color: '#0047AB',
+              letterSpacing: '2px'
+            }}>
+              ACTIVE POINTS
+            </h2>
           </div>
+        </div>
 
-          <div className="space-y-6">
-            {/* Base Cost Input - Comic style */}
-            <div className="relative">
-              <label htmlFor="baseCost" className="block text-lg font-black text-gray-800 mb-2 uppercase tracking-wider" style={{
-                textShadow: '2px 2px 0 rgba(0,0,0,0.1)'
-              }}>
-                Base Cost:
-              </label>
+        {/* Input Panels Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8">
+          {/* Panel 1: Base Cost */}
+          <div className="transform rotate-1 hover:rotate-0 transition-transform">
+            <div className="bg-yellow-100 border-8 border-black p-6 shadow-lg" style={{
+              boxShadow: '8px 8px 0px rgba(0,0,0,0.4)'
+            }}>
+              <div className="flex items-center gap-2 mb-4">
+                <label className="text-2xl font-black uppercase" style={{
+                  color: '#FF6B35',
+                  textShadow: '2px 2px 0 rgba(0,0,0,0.2)'
+                }}>
+                  Base Cost
+                </label>
+                <Tooltip
+                  title="Costo Base (Base Cost)"
+                  description="Es el costo inicial del poder sin modificadores. Representa el valor fundamental del efecto del poder en puntos de carácter."
+                />
+              </div>
               <input
-                id="baseCost"
                 type="number"
-                placeholder="Ej: 100"
+                placeholder="100"
                 step="0.01"
                 value={baseCost}
                 onChange={(e) => setBaseCost(e.target.value)}
                 onKeyPress={handleKeyPress}
-                className="w-full px-4 py-3 border-4 border-black rounded-xl focus:outline-none transition-all font-bold text-lg bg-yellow-50 focus:bg-yellow-100"
-                style={{
-                  boxShadow: '4px 4px 0px rgba(0,0,0,0.2)'
-                }}
+                className="w-full px-4 py-3 border-4 border-black text-xl font-bold focus:outline-none focus:ring-4 focus:ring-orange-500 bg-white"
               />
+              <p className="text-sm font-bold mt-3 text-gray-700">El costo inicial sin modificadores</p>
             </div>
+          </div>
 
-            {/* Ventajas Input */}
-            <div className="relative">
-              <label htmlFor="ventajas" className="block text-lg font-black text-gray-800 mb-2 uppercase tracking-wider" style={{
-                textShadow: '2px 2px 0 rgba(0,0,0,0.1)'
-              }}>
-                Ventajas:
-              </label>
+          {/* Panel 2: Ventajas */}
+          <div className="transform -rotate-2 hover:rotate-0 transition-transform">
+            <div className="bg-blue-100 border-8 border-black p-6 shadow-lg" style={{
+              boxShadow: '8px 8px 0px rgba(0,0,0,0.4)'
+            }}>
+              <div className="flex items-center gap-2 mb-4">
+                <label className="text-2xl font-black uppercase" style={{
+                  color: '#0047AB',
+                  textShadow: '2px 2px 0 rgba(0,0,0,0.2)'
+                }}>
+                  Ventajas
+                </label>
+                <Tooltip
+                  title="Ventajas (Advantages)"
+                  description="Son modificadores que hacen el poder más útil o poderoso. Aumentan el costo del poder. Por ejemplo: +0.5 significa un 50% de aumento. La fórmula es: Costo Activo = Costo Base × (1 + Ventajas)"
+                />
+              </div>
               <input
-                id="ventajas"
                 type="number"
-                placeholder="Ej: 0.5"
+                placeholder="0.5"
                 step="0.01"
                 value={ventajas}
                 onChange={(e) => setVentajas(e.target.value)}
                 onKeyPress={handleKeyPress}
-                className="w-full px-4 py-3 border-4 border-black rounded-xl focus:outline-none transition-all font-bold text-lg bg-yellow-50 focus:bg-yellow-100"
-                style={{
-                  boxShadow: '4px 4px 0px rgba(0,0,0,0.2)'
-                }}
+                className="w-full px-4 py-3 border-4 border-black text-xl font-bold focus:outline-none focus:ring-4 focus:ring-blue-500 bg-white"
               />
-              <p className="text-xs font-bold text-gray-700 mt-1">(ej: +0.5 sería 0.5)</p>
+              <p className="text-sm font-bold mt-3 text-gray-700">Modificadores que aumentan costo</p>
             </div>
+          </div>
 
-            {/* Limitaciones Input */}
-            <div className="relative">
-              <label htmlFor="limitaciones" className="block text-lg font-black text-gray-800 mb-2 uppercase tracking-wider" style={{
-                textShadow: '2px 2px 0 rgba(0,0,0,0.1)'
-              }}>
-                Limitaciones:
-              </label>
+          {/* Panel 3: Limitaciones */}
+          <div className="transform rotate-1 hover:rotate-0 transition-transform">
+            <div className="bg-red-100 border-8 border-black p-6 shadow-lg" style={{
+              boxShadow: '8px 8px 0px rgba(0,0,0,0.4)'
+            }}>
+              <div className="flex items-center gap-2 mb-4">
+                <label className="text-2xl font-black uppercase" style={{
+                  color: '#DC143C',
+                  textShadow: '2px 2px 0 rgba(0,0,0,0.2)'
+                }}>
+                  Limitaciones
+                </label>
+                <Tooltip
+                  title="Limitaciones (Limitations)"
+                  description="Son desventajas o restricciones del poder que lo hacen menos versátil. Disminuyen el costo final. Por ejemplo: 1 significa un 50% de descuento. La fórmula es: Costo Real = Costo Activo / (1 + Limitaciones)"
+                />
+              </div>
               <input
-                id="limitaciones"
                 type="number"
-                placeholder="Ej: 1"
+                placeholder="1"
                 step="0.01"
                 value={limitaciones}
                 onChange={(e) => setLimitaciones(e.target.value)}
                 onKeyPress={handleKeyPress}
-                className="w-full px-4 py-3 border-4 border-black rounded-xl focus:outline-none transition-all font-bold text-lg bg-yellow-50 focus:bg-yellow-100"
-                style={{
-                  boxShadow: '4px 4px 0px rgba(0,0,0,0.2)'
-                }}
+                className="w-full px-4 py-3 border-4 border-black text-xl font-bold focus:outline-none focus:ring-4 focus:ring-red-500 bg-white"
               />
-              <p className="text-xs font-bold text-gray-700 mt-1">(ej: -1 sería 1)</p>
+              <p className="text-sm font-bold mt-3 text-gray-700">Restricciones que disminuyen costo</p>
             </div>
-
-            {/* POW! Button */}
-            <button
-              onClick={calcular}
-              className="w-full bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:to-red-600 text-white font-black py-4 px-6 rounded-2xl border-4 border-black transition-all transform hover:scale-105 active:scale-95 text-xl uppercase tracking-widest"
-              style={{
-                boxShadow: '6px 6px 0px rgba(0,0,0,0.3)',
-                textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
-              }}
-            >
-              CALCULAR
-            </button>
           </div>
+        </div>
 
-          {/* Results Box */}
-          {results && !error && (
-            <div className="mt-8 p-6 bg-gradient-to-br from-cyan-200 to-blue-200 rounded-2xl border-4 border-black transform -rotate-1"
+        {/* Calculate Button - Large */}
+        <div className="mb-8 text-center">
+          <button
+            onClick={calcular}
+            className="relative inline-block transform hover:scale-110 active:scale-95 transition-transform"
+            style={{
+              filter: 'drop-shadow(8px 8px 0px rgba(0,0,0,0.4))'
+            }}
+          >
+            <div className="bg-gradient-to-b from-purple-500 to-pink-600 border-8 border-black px-12 py-6 text-5xl font-black text-white uppercase cursor-pointer"
               style={{
-                boxShadow: '6px 6px 0px rgba(0,0,0,0.2)'
+                textShadow: '-3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000',
+                letterSpacing: '2px'
               }}>
-              <h2 className="text-xl font-black text-gray-800 uppercase tracking-wider mb-4" style={{
-                textShadow: '2px 2px 0 rgba(255,215,0,0.5)'
+              ¡CALCULAR!
+            </div>
+          </button>
+        </div>
+
+        {/* Results Panel */}
+        {results && !error && (
+          <div className="transform -rotate-1 mb-8">
+            <div className="bg-gradient-to-br from-cyan-100 to-blue-100 border-8 border-black p-8 shadow-xl" style={{
+              boxShadow: '0 10px 25px rgba(0,0,0,0.3), 0 0 0 4px #00CED1'
+            }}>
+              <h2 className="text-4xl font-black mb-6 uppercase" style={{
+                textShadow: '-3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000',
+                color: '#0047AB',
+                letterSpacing: '2px'
               }}>
-                RESULTADO
+                ¡RESULTADO!
               </h2>
-              <div className="space-y-4 bg-white rounded-lg p-4 border-3 border-black">
-                <div className="flex justify-between items-center">
-                  <span className="text-lg font-black text-gray-800">Active Points:</span>
-                  <span className="text-3xl font-black bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent" style={{
-                    textShadow: '2px 2px 4px rgba(0,0,0,0.2)'
+              
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Active Points Result Panel */}
+                <div className="bg-white border-6 border-black p-6 transform rotate-2" style={{
+                  boxShadow: '6px 6px 0px rgba(0,0,0,0.2)'
+                }}>
+                  <p className="text-2xl font-black mb-3 uppercase" style={{
+                    color: '#FF6B35',
+                    textShadow: '2px 2px 0 rgba(0,0,0,0.1)'
+                  }}>
+                    Active Points
+                  </p>
+                  <p className="text-6xl font-black text-center" style={{
+                    color: '#FF6B35',
+                    textShadow: '-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000'
                   }}>
                     {results.activePoints.toFixed(2)}
-                  </span>
+                  </p>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-lg font-black text-gray-800">Real Points:</span>
-                  <span className="text-3xl font-black bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent" style={{
-                    textShadow: '2px 2px 4px rgba(0,0,0,0.2)'
+
+                {/* Real Points Result Panel */}
+                <div className="bg-white border-6 border-black p-6 transform -rotate-1" style={{
+                  boxShadow: '6px 6px 0px rgba(0,0,0,0.2)'
+                }}>
+                  <p className="text-2xl font-black mb-3 uppercase" style={{
+                    color: '#0047AB',
+                    textShadow: '2px 2px 0 rgba(0,0,0,0.1)'
+                  }}>
+                    Real Points
+                  </p>
+                  <p className="text-6xl font-black text-center" style={{
+                    color: '#0047AB',
+                    textShadow: '-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000'
                   }}>
                     {results.realPoints.toFixed(2)}
-                  </span>
+                  </p>
                 </div>
               </div>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Error Box */}
-          {error && (
-            <div className="mt-8 p-6 bg-gradient-to-br from-red-300 to-orange-300 rounded-2xl border-4 border-black transform rotate-1"
-              style={{
-                boxShadow: '6px 6px 0px rgba(0,0,0,0.2)'
+        {/* Error Panel */}
+        {error && (
+          <div className="transform rotate-3 mb-8">
+            <div className="bg-red-200 border-8 border-black p-8 shadow-xl" style={{
+              boxShadow: '0 10px 25px rgba(0,0,0,0.3), 0 0 0 4px #FFB6C1'
+            }}>
+              <p className="text-4xl font-black text-center uppercase" style={{
+                color: '#8B0000',
+                textShadow: '-3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000',
+                letterSpacing: '2px'
               }}>
-              <h2 className="text-xl font-black text-red-800 uppercase tracking-wider" style={{
-                textShadow: '2px 2px 0 rgba(255,255,255,0.5)'
-              }}>
-                ERROR: {error}
-              </h2>
+                ¡{error}!
+              </p>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
