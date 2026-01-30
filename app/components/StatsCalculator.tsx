@@ -66,14 +66,17 @@ export default function StatsCalculator() {
 
   return (
     <div className="min-h-screen w-full p-4 md:p-8" style={{
-      background: 'linear-gradient(135deg, #E6F3FF 0%, #C2E0FF 50%, #99CCFF 100%)',
+      background: 'radial-gradient(circle at top left, #fff7ed 0%, #e0f2fe 35%, #bfdbfe 70%, #93c5fd 100%)',
       position: 'relative'
     }}>
-      {/* Decorative dots pattern */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
-        backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)',
-        backgroundSize: '20px 20px'
+      {/* Halftone dots pattern */}
+      <div className="absolute inset-0 opacity-15 pointer-events-none" style={{
+        backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.35) 1px, transparent 1px)',
+        backgroundSize: '18px 18px'
       }}></div>
+      {/* Comic burst corners */}
+      <div className="absolute top-6 right-6 w-24 h-24 bg-yellow-300 border-4 border-black rounded-full rotate-12 shadow-[6px_6px_0_#000] opacity-80"></div>
+      <div className="absolute bottom-8 left-8 w-28 h-28 bg-pink-300 border-4 border-black rounded-full -rotate-6 shadow-[6px_6px_0_#000] opacity-70"></div>
 
       {/* Home Button */}
       <Link href="/">
@@ -86,16 +89,17 @@ export default function StatsCalculator() {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Title */}
         <div className="relative mb-8 transform hover:scale-105 transition-transform duration-300">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 rounded-3xl transform -rotate-1" 
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-blue-500 to-cyan-500 rounded-3xl transform -rotate-1" 
             style={{
               clipPath: 'polygon(5% 0%, 95% 2%, 100% 5%, 100% 95%, 95% 98%, 5% 100%, 0% 95%, 0% 5%)',
-              boxShadow: '0 0 0 4px #000, 0 8px 16px rgba(0,0,0,0.3), inset 0 0 0 3px rgba(255,255,255,0.2)'
+              boxShadow: '0 0 0 5px #000, 0 10px 18px rgba(0,0,0,0.35), inset 0 0 0 3px rgba(255,255,255,0.25)'
             }}></div>
           
           <div className="relative px-8 py-8 text-center">
             <h1 className="text-5xl md:text-6xl font-black text-white drop-shadow-lg" style={{
-              textShadow: '-3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000, 0px 0px 20px rgba(0,200,255,0.8)',
-              fontStyle: 'italic'
+              textShadow: '-4px -4px 0 #000, 4px -4px 0 #000, -4px 4px 0 #000, 4px 4px 0 #000, 0px 0px 24px rgba(0,180,255,0.9)',
+              fontStyle: 'italic',
+              letterSpacing: '2px'
             }}>
               CALCULADORA DE CARACTERÍSTICAS
             </h1>
@@ -104,9 +108,9 @@ export default function StatsCalculator() {
 
         {/* Total Cost Display - Sticky */}
         <div className="sticky top-4 z-40 mb-8">
-          <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl p-6 border-4 border-black transform rotate-1"
+          <div className="bg-gradient-to-br from-yellow-300 to-orange-500 rounded-2xl p-6 border-4 border-black transform -rotate-1"
             style={{
-              boxShadow: '0 0 0 3px #000, 0 8px 16px rgba(0,0,0,0.3)'
+              boxShadow: '0 0 0 3px #000, 0 10px 0 #000, 0 12px 20px rgba(0,0,0,0.35)'
             }}>
             <div className="flex justify-between items-center flex-wrap gap-4">
               <div>
@@ -116,7 +120,7 @@ export default function StatsCalculator() {
                   COSTO TOTAL:
                 </h2>
               </div>
-              <div className="bg-white rounded-xl px-6 py-3 border-2 border-black">
+              <div className="bg-white rounded-xl px-6 py-3 border-2 border-black shadow-[3px_3px_0_#000]">
                 <p className="text-4xl md:text-5xl font-black" style={{
                   color: totalCost >= 0 ? '#16a34a' : '#dc2626'
                 }}>
@@ -125,7 +129,7 @@ export default function StatsCalculator() {
               </div>
               <button
                 onClick={resetToBase}
-                className="px-6 py-3 bg-gradient-to-br from-gray-600 to-gray-800 text-white font-black rounded-lg border-2 border-black hover:brightness-110 transform hover:scale-105 transition-all"
+                className="px-6 py-3 bg-gradient-to-br from-gray-700 to-gray-900 text-white font-black rounded-lg border-2 border-black hover:brightness-110 transform hover:scale-105 transition-all shadow-[3px_3px_0_#000]"
                 style={{
                   textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
                 }}>
@@ -142,16 +146,16 @@ export default function StatsCalculator() {
             const isModified = values[char.abbr] !== char.base;
             
             return (
-              <div key={char.abbr} className={`bg-white rounded-2xl border-4 border-black p-4 transform transition-all ${isModified ? 'scale-105 rotate-1 shadow-xl' : 'hover:scale-105'}`}
+              <div key={char.abbr} className={`bg-white rounded-2xl border-4 border-black p-3 transform transition-all ${isModified ? 'scale-105 -rotate-1' : 'hover:scale-105'}`}
                 style={{
-                  boxShadow: '0 6px 12px rgba(0,0,0,0.25)'
+                  boxShadow: '0 8px 0 #000, 0 12px 16px rgba(0,0,0,0.25)'
                 }}>
-                <div className="flex items-start justify-between mb-3">
+                <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-2xl font-black text-blue-600">{char.abbr}</span>
+                    <span className="text-xl font-black text-blue-600">{char.abbr}</span>
                     <Tooltip content={char.description} />
                   </div>
-                  <span className={`text-sm font-black px-2.5 py-1 rounded-lg border-2 border-black ${
+                  <span className={`text-xs font-black px-2 py-0.5 rounded-md border-2 border-black ${
                     cost > 0 ? 'bg-red-200 text-red-700' : 
                     cost < 0 ? 'bg-green-200 text-green-700' : 
                     'bg-gray-200 text-gray-700'
@@ -160,14 +164,14 @@ export default function StatsCalculator() {
                   </span>
                 </div>
                 
-                <p className="text-sm font-bold text-gray-600 mb-3 min-h-[18px]">{char.name}</p>
+                <p className="text-xs font-bold text-gray-700 mb-2 min-h-[16px]">{char.name}</p>
                 
-                <div className="flex items-center gap-2">
+                <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
                   <button
                     onClick={() => handleValueChange(char.abbr, (values[char.abbr] - char.increment).toString())}
-                    className="w-9 h-9 flex items-center justify-center bg-red-500 text-white font-black text-xl rounded-lg border-2 border-black hover:brightness-110 hover:scale-110 transition-all active:scale-95"
+                    className="w-8 h-8 flex items-center justify-center bg-red-500 text-white font-black text-lg rounded-md border-2 border-black hover:brightness-110 hover:scale-110 transition-all active:scale-95"
                     style={{
-                      boxShadow: '0 2px 0 #991b1b'
+                      boxShadow: '2px 2px 0 #000'
                     }}
                   >
                     −
@@ -178,7 +182,7 @@ export default function StatsCalculator() {
                     value={values[char.abbr]}
                     onChange={(e) => handleValueChange(char.abbr, e.target.value)}
                     step={char.increment}
-                    className="flex-1 text-center text-xl font-black border-2 border-black rounded-lg px-2 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full text-center text-lg font-black border-2 border-black rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     style={{
                       boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)'
                     }}
@@ -186,16 +190,16 @@ export default function StatsCalculator() {
                   
                   <button
                     onClick={() => handleValueChange(char.abbr, (values[char.abbr] + char.increment).toString())}
-                    className="w-9 h-9 flex items-center justify-center bg-green-500 text-white font-black text-xl rounded-lg border-2 border-black hover:brightness-110 hover:scale-110 transition-all active:scale-95"
+                    className="w-8 h-8 flex items-center justify-center bg-green-500 text-white font-black text-lg rounded-md border-2 border-black hover:brightness-110 hover:scale-110 transition-all active:scale-95"
                     style={{
-                      boxShadow: '0 2px 0 #15803d'
+                      boxShadow: '2px 2px 0 #000'
                     }}
                   >
                     +
                   </button>
                 </div>
                 
-                <p className="text-xs text-gray-500 mt-3 text-center font-bold">
+                <p className="text-[11px] text-gray-500 mt-2 text-center font-bold">
                   Base: {char.base} | Costo: {char.costPer}CP{char.increment > 1 ? `/${char.increment}` : ''}
                 </p>
               </div>
@@ -204,9 +208,9 @@ export default function StatsCalculator() {
         </div>
 
         {/* Info Card */}
-        <div className="bg-yellow-100 rounded-2xl border-4 border-black p-6 transform -rotate-1"
+        <div className="bg-yellow-100 rounded-2xl border-4 border-black p-6 transform rotate-1"
           style={{
-            boxShadow: '0 0 0 2px #000, 0 6px 12px rgba(0,0,0,0.2)'
+            boxShadow: '0 0 0 2px #000, 0 8px 0 #000, 0 12px 16px rgba(0,0,0,0.2)'
           }}>
           <h3 className="text-2xl font-black text-gray-800 mb-4 flex items-center gap-2">
             <span className="text-3xl">ℹ️</span> INFORMACIÓN
