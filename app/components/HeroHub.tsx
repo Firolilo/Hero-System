@@ -1,6 +1,6 @@
 'use client';
 
-import { Calculator, Wrench, Star, Sparkles, Info } from 'lucide-react';
+import { Calculator, BarChart3, Star, Sparkles, Info } from 'lucide-react';
 import Link from 'next/link';
 
 export default function HeroHub() {
@@ -70,7 +70,7 @@ export default function HeroHub() {
 
         {/* Tools Grid */}
         <div className="grid md:grid-cols-2 gap-8 mb-8">
-          {/* Calculator Tool */}
+          {/* Powers Calculator Tool */}
           <Link href="/calculator">
             <div className="group cursor-pointer relative">
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl transform rotate-1 group-hover:rotate-3 group-hover:scale-105 transition-all duration-300"
@@ -88,10 +88,10 @@ export default function HeroHub() {
                 <h3 className="text-3xl font-black text-gray-800 text-center mb-2" style={{
                   textShadow: '2px 2px 0 rgba(0,0,0,0.1)'
                 }}>
-                  CALCULADORA
+                  PODERES
                 </h3>
                 <p className="text-lg font-bold text-gray-600 text-center mb-4">
-                  Calcula puntos de vida y costos de habilidades
+                  Calcula costos de poderes y habilidades
                 </p>
                 <div className="flex justify-center">
                   <span className="bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-black px-6 py-2 rounded-lg border-2 border-black transform group-hover:scale-110 transition-transform">
@@ -102,7 +102,39 @@ export default function HeroHub() {
             </div>
           </Link>
 
-          {/* WIP Tool */}
+          {/* Stats Calculator Tool */}
+          <Link href="/stats">
+            <div className="group cursor-pointer relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl transform rotate-1 group-hover:rotate-3 group-hover:scale-105 transition-all duration-300"
+                style={{
+                  boxShadow: '0 0 0 3px #000, 0 8px 16px rgba(0,0,0,0.3)'
+                }}></div>
+              
+              <div className="relative bg-white rounded-2xl p-8 border-4 border-black transform group-hover:scale-105 group-hover:-rotate-1 transition-all duration-300"
+                style={{
+                  boxShadow: 'inset 0 0 0 2px #000, 0 6px 12px rgba(0,0,0,0.2)'
+                }}>
+              <div className="text-6xl mb-4 text-center group-hover:scale-125 transition-transform duration-300">
+                  <BarChart3 size={64} className="mx-auto text-emerald-600" />
+                </div>
+                <h3 className="text-3xl font-black text-gray-800 text-center mb-2" style={{
+                  textShadow: '2px 2px 0 rgba(0,0,0,0.1)'
+                }}>
+                  STATS
+                </h3>
+                <p className="text-lg font-bold text-gray-600 text-center mb-4">
+                  Calcula costos de características
+                </p>
+                <div className="flex justify-center">
+                  <span className="bg-gradient-to-r from-emerald-400 to-teal-500 text-white font-black px-6 py-2 rounded-lg border-2 border-black transform group-hover:scale-110 transition-transform">
+                    INGRESAR →
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* WIP Tool - Commented out for future use
           <div className="group cursor-not-allowed relative opacity-60">
             <div className="absolute inset-0 bg-gradient-to-br from-gray-400 to-gray-500 rounded-2xl transform rotate-1"
               style={{
@@ -131,6 +163,7 @@ export default function HeroHub() {
               </div>
             </div>
           </div>
+          */}
         </div>
 
         {/* Floating stars animation */}

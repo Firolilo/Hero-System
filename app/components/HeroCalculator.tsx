@@ -62,14 +62,14 @@ export default function HeroCalculator() {
               letterSpacing: '4px',
               fontStyle: 'italic'
             }}>
-              ¡CALCULADORA!
+              ¡CALCULADORA DE PODERES!
             </h1>
             <h2 className="text-4xl md:text-5xl font-black text-center" style={{
               textShadow: '-3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000',
               color: '#0047AB',
               letterSpacing: '2px'
             }}>
-              ACTIVE POINTS
+              ACTIVE & REAL POINTS
             </h2>
           </div>
         </div>
