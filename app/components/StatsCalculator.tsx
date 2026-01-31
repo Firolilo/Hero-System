@@ -78,7 +78,7 @@ export default function StatsCalculator() {
       <div className="absolute top-6 right-6 w-24 h-24 bg-yellow-300 border-4 border-black rounded-full rotate-12 shadow-[6px_6px_0_#000] opacity-80"></div>
       <div className="absolute bottom-8 left-8 w-28 h-28 bg-pink-300 border-4 border-black rounded-full -rotate-6 shadow-[6px_6px_0_#000] opacity-70"></div>
 
-      {/* Home Button */}
+      {/* Home Buttonee */}
       <Link href="/">
         <button className="fixed top-4 left-4 z-50 p-3 bg-gradient-to-br from-purple-600 to-indigo-800 rounded-lg border-2 border-purple-900 hover:brightness-110 transition-all transform hover:scale-110 group"
           title="Volver al Hub">
