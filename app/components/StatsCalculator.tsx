@@ -74,7 +74,7 @@ export default function StatsCalculator() {
         backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.35) 1px, transparent 1px)',
         backgroundSize: '18px 18px'
       }}></div>
-      {/* Comic burst corners */}
+      {/* Comic burst cornerssad */}
       <div className="absolute top-6 right-6 w-24 h-24 bg-yellow-300 border-4 border-black rounded-full rotate-12 shadow-[6px_6px_0_#000] opacity-80"></div>
       <div className="absolute bottom-8 left-8 w-28 h-28 bg-pink-300 border-4 border-black rounded-full -rotate-6 shadow-[6px_6px_0_#000] opacity-70"></div>
 
