@@ -87,7 +87,7 @@ export default function StatsCalculator() {
       </Link>
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Title */}
+        {/* Titlew */}
         <div className="relative mb-8 transform hover:scale-105 transition-transform duration-300">
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-blue-500 to-cyan-500 rounded-3xl transform -rotate-1" 
             style={{
