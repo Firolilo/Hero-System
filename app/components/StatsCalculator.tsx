@@ -69,7 +69,7 @@ export default function StatsCalculator() {
       background: 'radial-gradient(circle at top left, #fff7ed 0%, #e0f2fe 35%, #bfdbfe 70%, #93c5fd 100%)',
       position: 'relative'
     }}>
-      {/* Halftone dots patternee */}
+      {/* Halftone dots patterneee */}
       <div className="absolute inset-0 opacity-15 pointer-events-none" style={{
         backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.35) 1px, transparent 1px)',
         backgroundSize: '18px 18px'
