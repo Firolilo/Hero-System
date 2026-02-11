@@ -35,9 +35,19 @@ const characteristics: CharacteristicDef[] = [
 ];
 
 export default function StatsCalculator() {
-  const [values, setValues] = useState<Record<string, number>>(
-    characteristics.reduce((acc, char) => ({ ...acc, [char.abbr]: char.base }), {})
+  const [values, setValues] = useState<Record<string, string>>(
+    characteristics.reduce((acc, char) => ({ ...acc, [char.abbr]: String(char.base) }), {})
   );
+
+  const getNumericValue = (abbr: string): number => {
+    const raw = values[abbr];
+    const parsed = parseFloat(raw);
+    if (raw === '' || raw === '-' || Number.isNaN(parsed)) {
+      const fallback = characteristics.find(char => char.abbr === abbr)?.base ?? 0;
+      return fallback;
+    }
+    return parsed;
+  };
 
   const calculateCharCost = (char: CharacteristicDef, value: number): number => {
     const difference = value - char.base;
@@ -47,19 +57,33 @@ export default function StatsCalculator() {
 
   const calculateTotalCost = (): number => {
     return characteristics.reduce((total, char) => {
-      return total + calculateCharCost(char, values[char.abbr]);
+      return total + calculateCharCost(char, getNumericValue(char.abbr));
     }, 0);
   };
 
   const handleValueChange = (abbr: string, newValue: string) => {
+    if (newValue === '' || newValue === '-') {
+      setValues(prev => ({ ...prev, [abbr]: newValue }));
+      return;
+    }
+
     const numValue = parseFloat(newValue);
-    if (!isNaN(numValue)) {
-      setValues(prev => ({ ...prev, [abbr]: numValue }));
+    if (!Number.isNaN(numValue)) {
+      setValues(prev => ({ ...prev, [abbr]: String(numValue) }));
+    }
+  };
+
+  const handleValueBlur = (abbr: string) => {
+    const raw = values[abbr];
+    const parsed = parseFloat(raw);
+    if (raw === '' || raw === '-' || Number.isNaN(parsed)) {
+      const fallback = characteristics.find(char => char.abbr === abbr)?.base ?? 0;
+      setValues(prev => ({ ...prev, [abbr]: String(fallback) }));
     }
   };
 
   const resetToBase = () => {
-    setValues(characteristics.reduce((acc, char) => ({ ...acc, [char.abbr]: char.base }), {}));
+    setValues(characteristics.reduce((acc, char) => ({ ...acc, [char.abbr]: String(char.base) }), {}));
   };
 
   const totalCost = calculateTotalCost();
@@ -142,8 +166,9 @@ export default function StatsCalculator() {
         {/* Characteristics Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
           {characteristics.map((char) => {
-            const cost = calculateCharCost(char, values[char.abbr]);
-            const isModified = values[char.abbr] !== char.base;
+            const currentValue = getNumericValue(char.abbr);
+            const cost = calculateCharCost(char, currentValue);
+            const isModified = currentValue !== char.base;
             
             return (
               <div key={char.abbr} className={`bg-white rounded-2xl border-4 border-black p-3 transform transition-all ${isModified ? 'scale-105 -rotate-1' : 'hover:scale-105'}`}
@@ -168,7 +193,7 @@ export default function StatsCalculator() {
                 
                 <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
                   <button
-                    onClick={() => handleValueChange(char.abbr, (values[char.abbr] - char.increment).toString())}
+                    onClick={() => handleValueChange(char.abbr, String(currentValue - char.increment))}
                     className="w-8 h-8 flex items-center justify-center bg-red-500 text-white font-black text-lg rounded-md border-2 border-black hover:brightness-110 hover:scale-110 transition-all active:scale-95"
                     style={{
                       boxShadow: '2px 2px 0 #000'
@@ -181,15 +206,16 @@ export default function StatsCalculator() {
                     type="number"
                     value={values[char.abbr]}
                     onChange={(e) => handleValueChange(char.abbr, e.target.value)}
+                    onBlur={() => handleValueBlur(char.abbr)}
                     step={char.increment}
-                    className="w-full text-center text-lg font-black border-2 border-black rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full text-center text-lg font-black text-gray-900 bg-white border-2 border-black rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     style={{
                       boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)'
                     }}
                   />
                   
                   <button
-                    onClick={() => handleValueChange(char.abbr, (values[char.abbr] + char.increment).toString())}
+                    onClick={() => handleValueChange(char.abbr, String(currentValue + char.increment))}
                     className="w-8 h-8 flex items-center justify-center bg-green-500 text-white font-black text-lg rounded-md border-2 border-black hover:brightness-110 hover:scale-110 transition-all active:scale-95"
                     style={{
                       boxShadow: '2px 2px 0 #000'
